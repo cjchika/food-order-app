@@ -11,10 +11,20 @@ const Cart = (props) => {
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
 
+  const cartItemRemoveHandler = (id) => {};
+
+  const cartItemAddHandler = (id) => {};
+
   const cartItems = (
-    <ul className={styles['cart-items']}>
+    <ul className={styles["cart-items"]}>
       {cartCtx.items.map((item) => (
-        <CartItem />
+        <CartItem
+          key={item.id}
+          name={item.name}
+          amount={item.amount}
+          price={item.price}
+          onRemove={cartItemRemoveHandler}
+        />
       ))}
     </ul>
   );
@@ -22,13 +32,15 @@ const Cart = (props) => {
     <Modal onClose={props.onClose}>
       {cartItems}
       <div className={styles.total}>
-				<span>Total Amount</span>
-				<span>{totalAmount}</span>
-			</div>
+        <span>Total Amount</span>
+        <span>{totalAmount}</span>
+      </div>
       <div className={styles.actions}>
-				<button className={styles['button--alt']} onClick={props.onClose}>Close</button>
-				{hasItems && <button className={styles.button}>Order</button>}
-			</div>
+        <button className={styles["button--alt"]} onClick={props.onClose}>
+          Close
+        </button>
+        {hasItems && <button className={styles.button}>Order</button>}
+      </div>
     </Modal>
   );
 };
