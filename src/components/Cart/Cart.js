@@ -1,11 +1,12 @@
 import { useContext } from "react";
 
 import Modal from "../UI/Modal";
+import CartItem from "./CartItem";
 import styles from "./Cart.module.css";
 import CartContext from "../context/cart-context";
 
 const Cart = (props) => {
-  const cartCtx = useState(CartContext);
+  const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
@@ -13,7 +14,7 @@ const Cart = (props) => {
   const cartItems = (
     <ul className={styles['cart-items']}>
       {cartCtx.items.map((item) => (
-        <li>{item.name}</li>
+        <CartItem />
       ))}
     </ul>
   );
