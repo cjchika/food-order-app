@@ -1,7 +1,11 @@
 import styles from './Checkout.module.css'
 
+
 const Checkout = props => {
-	return <form>
+
+	const confirmHandler = event => {};
+	
+	return <form onSubmit={confirmHandler}>
 		<div className={styles.control}>
 			<label htmlFor='name'>Your Name</label>
 			<input type='text' id='name'/>
@@ -18,7 +22,7 @@ const Checkout = props => {
 			<label htmlFor='city'>City</label>
 			<input type='text' id='city'/>
 		</div>
-		<button type="button">Cancel</button>
+		<button type="button" onClick={props.onCancel}>Cancel</button>
 		<button>Confirm</button>
 	</form>
 }
