@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import meals from '../assets/meals.jpg'
+import meals from '../../assets/meals.jpg'
 import HeaderCartButton from "./HeaderCartButton";
 import styles from './Header.module.css'
 
