@@ -32,6 +32,7 @@ const SUB_MEALS = [
 const AvailableMeals = () => {
   const mealList = SUB_MEALS.map((meal) => (
     <MealItem
+			id={meal.id}
       key={meal.id}
       title={meal.name}
       desc={meal.description}
