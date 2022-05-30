@@ -1,4 +1,5 @@
-import styles from './AvailableMeals.module.css'
+import Card from "../UI/Card";
+import styles from "./AvailableMeals.module.css";
 
 const SUB_MEALS = [
   {
@@ -28,13 +29,15 @@ const SUB_MEALS = [
 ];
 
 const AvailableMeals = () => {
-	const mealList = SUB_MEALS.map(meal => <li key={meal.id}>{meal.name}</li>)
+  const mealList = SUB_MEALS.map((meal) => <li key={meal.id}>{meal.name}</li>);
 
-	return <section className={styles.meals}>
-		<ul>
-			{mealList}
-		</ul>
-	</section>
+  return (
+    <section className={styles.meals}>
+      <Card>
+        <ul>{mealList}</ul>
+      </Card>
+    </section>
+  );
 };
 
 export default AvailableMeals;
