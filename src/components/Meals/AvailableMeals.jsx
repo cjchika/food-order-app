@@ -8,11 +8,16 @@ import styles from "./AvailableMeals.module.css";
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
+  const [databaseError, setDatabaseError] = useState()
    
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch('https://food-project-e16bf-default-rtdb.firebaseio.com/meals.json')
       const responseData = await response.json()
+
+      if(!response.ok) {
+        throw new Error("Something is not right")
+      }
 
       const loadedMeals = []
 
@@ -29,14 +34,25 @@ const AvailableMeals = () => {
       setIsLoading(false)
     };
 
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      setDatabaseError(error.message)
+    });
 
-    fetchMeals();
   }, []);
   
   if(isLoading) {
     return (
       <section className={styles.mealsloading}>
       <p>Loading...</p>
+      </section>
+    )
+  }
+
+  if(databaseError) {
+    return (
+      <section className={styles.databaseError}>
+      <p>{databaseError}</p>
       </section>
     )
   }
