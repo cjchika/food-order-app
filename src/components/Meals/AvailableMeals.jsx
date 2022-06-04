@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
@@ -7,35 +7,40 @@ import styles from "./AvailableMeals.module.css";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+   
+  useEffect(() => {
+    const fetchMeals = async () => {
+      const response = await fetch('https://food-project-e16bf-default-rtdb.firebaseio.com/meals.json')
+      const responseData = await response.json()
 
+      const loadedMeals = []
 
-  const fetchMealsHandler = useCallback(async () => {
-    setIsLoading(true)
-    setError(null)
-    
-    try {
-      const response = await fetch('https://food-order-app-420a4-default-rtdb.firebaseio.com/meals.json');
-      if (!response.ok) {
-        throw new Error('Something went wrong!')
+      for (const key in responseData) {
+        loadedMeals.push({
+          id: key,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price: responseData[key].price
+        })
       }
-  
-      const data = await response.json(meals);
-  
-      console.log(data);
-  
-      setMeals(data);
+
+      setMeals(loadedMeals)
       setIsLoading(false)
-    } catch(error) {
-      setError(error.message)
-    }
-    setIsLoading(false)
+    };
+
+
+    fetchMeals();
   }, []);
   
-  useEffect(() => {
-    fetchMealsHandler();
-  }, [fetchMealsHandler])
+  if(isLoading) {
+    return (
+      <section className={styles.mealsloading}>
+      <p>Loading...</p>
+      </section>
+    )
+  }
+  
   const mealList = meals.map((meal) => (
     <MealItem
 			id={meal.id}
