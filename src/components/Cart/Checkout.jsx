@@ -1,49 +1,20 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import classes from "./Checkout.module.css";
 
 const Checkout = (props) => {
-  const [inputName, setInputName] = useState("");
-  const [inputStreet, setInputStreet] = useState("");
-  const [inputCity, setInputCity] = useState("");
-
-  const nameChangeHandler = (event) => {
-    setInputName(event.target.value);
-  };
-
-  const streetChangeHandler = (event) => {
-    setInputStreet(event.target.value);
-  };
-
-  const cityChangeHandler = (event) => {
-    setInputCity(event.target.value);
-  };
+  const nameInputRef = useRef();
+  const streetInputRef = useRef();
+  const cityInputRef = useRef();
 
   const confirmHandler = (event) => {
     event.preventDefault();
 
-    if (
-      inputName.trim().length === 0 ||
-      inputStreet.trim().length === 0 ||
-      inputCity.trim().length === 0
-    ) {
-      return;
-    }
+    const enteredName = nameInputRef.current.value;
+    const enteredStreet = streetInputRef.current.value;
+    const enteredCity = cityInputRef.current.value;
 
-    console.log(inputName);
-    console.log(inputStreet);
-    console.log(inputCity);
-
-    setInputName("");
-    setInputStreet("");
-    setInputCity("");
   };
-
-	props.onConfirm({
-		name: inputName,
-		street: inputStreet,
-		city: inputCity
-	});
 
   return (
     <form className={classes.form} onSubmit={confirmHandler}>
@@ -52,8 +23,7 @@ const Checkout = (props) => {
         <input
           type="text"
           id="name"
-          onChange={nameChangeHandler}
-          value={inputName}
+          ref={nameInputRef}
         />
       </div>
       <div className={classes.control}>
@@ -61,8 +31,7 @@ const Checkout = (props) => {
         <input
           type="text"
           id="street"
-          onChange={streetChangeHandler}
-          value={inputStreet}
+          ref={streetInputRef}
         />
       </div>
       <div className={classes.control}>
@@ -70,8 +39,7 @@ const Checkout = (props) => {
         <input
           type="text"
           id="city"
-          onChange={cityChangeHandler}
-          value={inputCity}
+          ref={cityInputRef}
         />
       </div>
       <div className={classes.actions}>
