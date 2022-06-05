@@ -22,18 +22,28 @@ const Checkout = (props) => {
   const confirmHandler = (event) => {
     event.preventDefault();
 
-		if (inputName.length === 0 || inputStreet.length === 0 || inputCity.length === 0) {
-			return;
-		}
+    if (
+      inputName.trim().length === 0 ||
+      inputStreet.trim().length === 0 ||
+      inputCity.trim().length === 0
+    ) {
+      return;
+    }
 
     console.log(inputName);
     console.log(inputStreet);
     console.log(inputCity);
 
-		setInputName('')
-		setInputStreet('')
-		setInputCity('')
+    setInputName("");
+    setInputStreet("");
+    setInputCity("");
   };
+
+	props.onConfirm({
+		name: inputName,
+		street: inputStreet,
+		city: inputCity
+	});
 
   return (
     <form className={classes.form} onSubmit={confirmHandler}>
