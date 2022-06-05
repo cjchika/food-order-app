@@ -40,6 +40,12 @@
   color: #429141;
 }
 
+.orderSent {
+  color: #429141;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
 .actions .button {
   background-color: #429141;
   color: white;
